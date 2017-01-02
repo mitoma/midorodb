@@ -30,7 +30,8 @@ CREATE TABLE rows (
 
 CREATE TABLE table_metas (
 	id serial primary key,
-	table_id integer,
+	code text,
+	name text,
 
 	-- template
 	created_at timestamp,
@@ -39,7 +40,7 @@ CREATE TABLE table_metas (
 
 CREATE TABLE column_metas (
 	id serial primary key,
-	table_meta_id integer,
+	table_meta_id integer references table_metas(id) on delete cascade,
 
 	code text,
 	name text,
@@ -55,34 +56,17 @@ CREATE TABLE column_metas (
 
 CREATE TABLE integer_column_metas (
 	id serial primary key,
-	column_meta_id integer,
+	column_meta_id integer references column_metas(id) on delete cascade,
 
 	min integer,
 	max integer
-);
-
-CREATE TABLE decimal_column_metas (
-	id serial primary key,
-	column_meta_id integer,
-	
-	min decimal,
-	max decimal
 );
 
 CREATE TABLE text_column_metas (
 	id serial primary key,
-	column_meta_id integer,
+	column_meta_id integer references column_metas(id) on delete cascade,
 	
 	min_length integer,
 	max_length integer,
 	text_pattern text
-);
-
-CREATE TABLE select_column_metas (
-	id serial primary key,
-	column_meta_id integer,
-	
-	options text[],
-	min integer,
-	max integer
 );

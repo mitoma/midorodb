@@ -2,8 +2,8 @@ package org.mitoma.midorodb.repository;
 
 import java.util.List;
 
-import org.mitoma.midorodb.entity.ColumnMeta;
 import org.mitoma.midorodb.entity.Table;
+import org.mitoma.midorodb.entity.column.CommonColumnMeta;
 import org.seasar.doma.Dao;
 import org.seasar.doma.Insert;
 import org.seasar.doma.Select;
@@ -24,6 +24,6 @@ public interface TableRepository {
 
   @Insert
   @Transactional
-  int insert(ColumnMeta columnMeta);
+  int insert(CommonColumnMeta columnMeta);
 
 }

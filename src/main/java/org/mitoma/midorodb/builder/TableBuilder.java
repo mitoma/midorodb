@@ -6,16 +6,16 @@ import java.util.UUID;
 
 import org.mitoma.midorodb.domain.Code;
 import org.mitoma.midorodb.domain.Label;
-import org.mitoma.midorodb.entity.ColumnMeta;
-import org.mitoma.midorodb.entity.IntegerColumnMeta;
 import org.mitoma.midorodb.entity.Table;
+import org.mitoma.midorodb.entity.column.CommonColumnMeta;
+import org.mitoma.midorodb.entity.column.IntegerColumnMeta;
 
 public class TableBuilder {
 
   private Label<Table> name;
   private Code<Table> code = Code.of(UUID.randomUUID().toString());
 
-  private List<ColumnMeta> columnMetas = new ArrayList<>();
+  private List<CommonColumnMeta> columnMetas = new ArrayList<>();
   private List<IntegerColumnMeta> integerColumnMetas = new ArrayList<>();
 
   public TableBuilder name(Label<Table> name) {
@@ -28,7 +28,7 @@ public class TableBuilder {
     return this;
   }
 
-  public TableBuilder column(ColumnMeta columnMeta, IntegerColumnMeta IntegerColumnMeta) {
+  public TableBuilder column(CommonColumnMeta columnMeta, IntegerColumnMeta IntegerColumnMeta) {
     columnMetas.add(columnMeta);
     integerColumnMetas.add(IntegerColumnMeta);
     return this;
