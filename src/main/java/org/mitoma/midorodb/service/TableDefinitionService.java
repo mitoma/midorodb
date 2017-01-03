@@ -1,11 +1,13 @@
 package org.mitoma.midorodb.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.mitoma.midorodb.domain.Identity;
 import org.mitoma.midorodb.entity.TableDefinition;
 import org.mitoma.midorodb.entity.TableMeta;
+import org.mitoma.midorodb.entity.column.ColumnMeta;
 import org.mitoma.midorodb.entity.column.CommonColumnMeta;
 import org.mitoma.midorodb.entity.column.DetailColumnMeta;
 import org.mitoma.midorodb.entity.column.DetailColumnVisitor;
@@ -24,12 +26,34 @@ public class TableDefinitionService {
 
   public List<TableDefinition> load() {
     List<TableMeta> tableMetas = tableDefinitionRepository.selectAllTableMetas();
-    List<CommonColumnMeta> commonColumnMetas = tableDefinitionRepository.selectAllCommonColumnMetas(
-        tableMetas.stream().map(TableMeta::getId).collect(Collectors.toList()));
-    List<Identity<CommonColumnMeta>> columnMetaIds =
+    List<Identity<TableMeta>> tableMetaIds =
+        tableMetas.stream().map(TableMeta::getId).collect(Collectors.toList());
+
+    List<CommonColumnMeta> commonColumnMetas =
+        tableDefinitionRepository.selectAllCommonColumnMetas(tableMetaIds);
+    List<Identity<CommonColumnMeta>> commonColumnMetaIds =
         commonColumnMetas.stream().map(CommonColumnMeta::getId).collect(Collectors.toList());
-    // ここから
-    return null;
+
+    List<IntegerColumnMeta> integerColumnMetas =
+        tableDefinitionRepository.selectAllIntegerColumnMetas(commonColumnMetaIds);
+    List<TextColumnMeta> textColumnMetas =
+        tableDefinitionRepository.selectAllTextColumnMetas(commonColumnMetaIds);
+
+    List<DetailColumnMeta> detailColumnMetas = new ArrayList<>();
+    detailColumnMetas.addAll(integerColumnMetas);
+    detailColumnMetas.addAll(textColumnMetas);
+
+    return tableMetas.stream().map(tableMeta -> {
+      List<ColumnMeta> columnMetas = commonColumnMetas.stream()
+          .filter(commonColumnMeta -> commonColumnMeta.getTableMetaId().equals(tableMeta.getId()))
+          .map(c -> {
+            DetailColumnMeta detailColumnMeta =
+                detailColumnMetas.stream().filter(d -> d.getCommonColumnMetaId().equals(c.getId()))
+                    .findFirst().orElseThrow(() -> new RuntimeException());
+            return new ColumnMeta(c, detailColumnMeta);
+          }).collect(Collectors.toList());
+      return new TableDefinition(tableMeta, columnMetas);
+    }).collect(Collectors.toList());
   }
 
   public void create(TableDefinition tableDefinition) {

@@ -18,7 +18,7 @@ import lombok.EqualsAndHashCode;
 public class TableMeta extends BaseEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE)
-  @SequenceGenerator(sequence = "table_metas_seq")
+  @SequenceGenerator(sequence = "table_metas_id_seq")
   private Identity<TableMeta> id;
 
 }

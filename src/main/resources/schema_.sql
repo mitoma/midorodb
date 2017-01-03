@@ -25,7 +25,8 @@ CREATE TABLE rows (
 
 	-- template
 	created_at timestamp,
-	updated_at timestamp
+	updated_at timestamp,
+	lock_version integer
 );
 
 CREATE TABLE table_metas (
@@ -35,10 +36,11 @@ CREATE TABLE table_metas (
 
 	-- template
 	created_at timestamp,
-	updated_at timestamp
+	updated_at timestamp,
+	lock_version integer
 );
 
-CREATE TABLE column_metas (
+CREATE TABLE common_column_metas (
 	id serial primary key,
 	table_meta_id integer references table_metas(id) on delete cascade,
 
@@ -51,22 +53,33 @@ CREATE TABLE column_metas (
 
 	-- template
 	created_at timestamp,
-	updated_at timestamp
+	updated_at timestamp,
+	lock_version integer
 );
 
 CREATE TABLE integer_column_metas (
 	id serial primary key,
-	column_meta_id integer references column_metas(id) on delete cascade,
+	common_column_meta_id integer references common_column_metas(id) on delete cascade,
 
 	min integer,
-	max integer
+	max integer,
+
+	-- template
+	created_at timestamp,
+	updated_at timestamp,
+	lock_version integer
 );
 
 CREATE TABLE text_column_metas (
 	id serial primary key,
-	column_meta_id integer references column_metas(id) on delete cascade,
+	common_column_meta_id integer references common_column_metas(id) on delete cascade,
 	
 	min_length integer,
 	max_length integer,
-	text_pattern text
+	text_pattern text,
+
+	-- template
+	created_at timestamp,
+	updated_at timestamp,
+	lock_version integer
 );

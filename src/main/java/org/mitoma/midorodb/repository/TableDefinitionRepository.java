@@ -34,4 +34,12 @@ public interface TableDefinitionRepository {
   @Select
   List<CommonColumnMeta> selectAllCommonColumnMetas(List<Identity<TableMeta>> tableMetaIds);
 
+  @Select
+  List<IntegerColumnMeta> selectAllIntegerColumnMetas(
+      List<Identity<CommonColumnMeta>> commonColumnMetaIds);
+
+  @Select
+  List<TextColumnMeta> selectAllTextColumnMetas(
+      List<Identity<CommonColumnMeta>> commonColumnMetaIds);
+
 }
