@@ -23,6 +23,10 @@ public class TextColumnMeta extends BaseEntity implements DetailColumnMeta {
   @SequenceGenerator(sequence = "text_column_metas_id_seq")
   private Identity<CommonColumnMeta> commonColumnMetaId;
 
+  private long minLength;
+  private long maxLength;
+  private String textPattern;
+
   @Override
   public <R> R accept(DetailColumnVisitor<R> visitor) {
     return visitor.visit(this);

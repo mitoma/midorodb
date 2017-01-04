@@ -1,1 +1,1 @@
-SELECT /*%expand*/* FROM table_metas;
+SELECT /*%expand*/* FROM table_metas ORDER BY id;

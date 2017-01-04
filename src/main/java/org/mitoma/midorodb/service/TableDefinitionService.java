@@ -2,9 +2,11 @@ package org.mitoma.midorodb.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import org.mitoma.midorodb.domain.Identity;
+import org.mitoma.midorodb.domain.SortOrder;
 import org.mitoma.midorodb.entity.TableDefinition;
 import org.mitoma.midorodb.entity.TableMeta;
 import org.mitoma.midorodb.entity.column.ColumnMeta;
@@ -15,11 +17,14 @@ import org.mitoma.midorodb.entity.column.IntegerColumnMeta;
 import org.mitoma.midorodb.entity.column.TextColumnMeta;
 import org.mitoma.midorodb.repository.TableDefinitionRepository;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class TableDefinitionService {
 
   private final TableDefinitionRepository tableDefinitionRepository;
@@ -56,17 +61,20 @@ public class TableDefinitionService {
     }).collect(Collectors.toList());
   }
 
+  @Transactional
   public void create(TableDefinition tableDefinition) {
     TableMeta tableMeta = tableDefinition.getTableMeta();
     tableDefinitionRepository.insert(tableMeta);
+    AtomicInteger i = new AtomicInteger(0);
     tableDefinition.getColumnMetas().forEach(c -> {
       CommonColumnMeta common = c.getCommon();
       common.setTableMetaId(tableMeta.getId());
+      common.setSortOrder(new SortOrder(i.incrementAndGet()));
 
       tableDefinitionRepository.insert(common);
       DetailColumnMeta detail = c.getDetail();
-      detail.setCommonColumnMetaId(common.getId());
 
+      detail.setCommonColumnMetaId(common.getId());
       detail.accept(new DetailColumnVisitor<Integer>() {
 
         @Override

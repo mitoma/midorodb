@@ -2,13 +2,13 @@ CREATE TABLE tables (
 	id serial primary key,
 
 	code text,
-	name text,
+	label text,
 	description text,
 
 	-- template
-	created_at timestamp,
-	updated_at timestamp,
-	lock_version integer
+	created_at timestamp not null,
+	updated_at timestamp not null,
+	lock_version integer not null
 );
 
 CREATE TABLE rows (
@@ -18,62 +18,63 @@ CREATE TABLE rows (
 	value jsonb,
 
 	-- template
-	created_at timestamp,
-	updated_at timestamp,
-	lock_version integer
+	created_at timestamp not null,
+	updated_at timestamp not null,
+	lock_version integer not null
 );
 
 CREATE TABLE table_metas (
 	id serial primary key,
-	code text,
-	name text,
+	code text not null,
+	label text not null,
 
 	-- template
-	created_at timestamp,
-	updated_at timestamp,
-	lock_version integer
+	created_at timestamp not null,
+	updated_at timestamp not null,
+	lock_version integer not null
 );
 
 CREATE TABLE common_column_metas (
 	id serial primary key,
-	table_meta_id integer references table_metas(id) on delete cascade,
+	table_meta_id integer not null references table_metas(id) on delete cascade,
 
-	code text,
-	name text,
-	required boolean,
-	uniqueness boolean,
+	code text not null,
+	label text not null,
+	sort_order integer not null,
 
-	sort_order integer,	
+	
+	-- required boolean not null,
+	-- uniqueness boolean not null,
 
 	-- template
-	created_at timestamp,
-	updated_at timestamp,
-	lock_version integer
+	created_at timestamp not null,
+	updated_at timestamp not null,
+	lock_version integer not null
 );
 
 CREATE TABLE integer_column_metas (
 	id serial primary key,
 	common_column_meta_id integer references common_column_metas(id) on delete cascade,
 
-	min integer,
-	max integer,
+	min integer not null,
+	max integer not null,
 
 	-- template
-	created_at timestamp,
-	updated_at timestamp,
-	lock_version integer
+	created_at timestamp not null,
+	updated_at timestamp not null,
+	lock_version integer not null
 );
 
 CREATE TABLE text_column_metas (
 	id serial primary key,
-	common_column_meta_id integer references common_column_metas(id) on delete cascade,
+	common_column_meta_id integer not null references common_column_metas(id) on delete cascade,
 	
-	min_length integer,
-	max_length integer,
-	text_pattern text,
+	min_length integer not null,
+	max_length integer not null,
+	text_pattern text not null,
 
 	-- template
-	created_at timestamp,
-	updated_at timestamp,
-	lock_version integer
+	created_at timestamp not null,
+	updated_at timestamp not null,
+	lock_version integer not null
 );

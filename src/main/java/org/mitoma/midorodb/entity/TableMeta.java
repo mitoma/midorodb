@@ -1,6 +1,8 @@
 package org.mitoma.midorodb.entity;
 
+import org.mitoma.midorodb.domain.Code;
 import org.mitoma.midorodb.domain.Identity;
+import org.mitoma.midorodb.domain.Label;
 import org.seasar.doma.Entity;
 import org.seasar.doma.GeneratedValue;
 import org.seasar.doma.GenerationType;
@@ -20,5 +22,9 @@ public class TableMeta extends BaseEntity {
   @GeneratedValue(strategy = GenerationType.SEQUENCE)
   @SequenceGenerator(sequence = "table_metas_id_seq")
   private Identity<TableMeta> id;
+
+  private Code<TableMeta> code;
+
+  private Label<TableMeta> label;
 
 }
