@@ -1,9 +1,3 @@
-CREATE USER midorodb CREATEDB;
-
-DROP DATABASE midorodb;
-
-CREATE DATABASE midorodb OWNER midorodb;
-
 CREATE TABLE tables (
 	id serial primary key,
 
