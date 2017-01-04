@@ -4,13 +4,12 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.seasar.doma.Domain;
 
-import lombok.Value;
-
 @XmlJavaTypeAdapter(LabelXmlAdapter.class)
-@Domain(valueType = String.class, factoryMethod = "of")
-@Value(staticConstructor = "of")
-public class Label<T> {
+@Domain(valueType = String.class)
+public class Label<T> extends StringDomain {
 
-  String value;
+  public Label(String value) {
+    super(value);
+  }
 
 }

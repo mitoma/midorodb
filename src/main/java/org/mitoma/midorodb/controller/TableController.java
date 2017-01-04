@@ -25,8 +25,8 @@ public class TableController {
   @PutMapping(path = "/tables")
   public Table addTable() {
     Table table = new Table();
-    table.setLabel(Label.of("テスト"));
-    table.setName(Code.of("太郎"));
+    table.setLabel(new Label<Table>("テスト"));
+    table.setName(new Code<Table>("太郎"));
 
     tableRepository.insert(table);
     return table;

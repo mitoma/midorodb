@@ -13,7 +13,7 @@ import org.mitoma.midorodb.entity.column.IntegerColumnMeta;
 public class TableBuilder {
 
   private Label<Table> name;
-  private Code<Table> code = Code.of(UUID.randomUUID().toString());
+  private Code<Table> code = new Code<Table>(UUID.randomUUID().toString());
 
   private List<CommonColumnMeta> columnMetas = new ArrayList<>();
   private List<IntegerColumnMeta> integerColumnMetas = new ArrayList<>();
@@ -33,6 +33,6 @@ public class TableBuilder {
     integerColumnMetas.add(IntegerColumnMeta);
     return this;
   }
-  
-  
+
+
 }

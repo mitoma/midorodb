@@ -2,15 +2,15 @@ package org.mitoma.midorodb.domain;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-public class CodeXmlAdapter extends XmlAdapter<String, Code> {
+public class CodeXmlAdapter<T> extends XmlAdapter<String, Code<T>> {
 
   @Override
-  public Code unmarshal(String v) throws Exception {
-    return Code.of(v);
+  public Code<T> unmarshal(String v) throws Exception {
+    return new Code<>(v);
   }
 
   @Override
-  public String marshal(Code v) throws Exception {
+  public String marshal(Code<T> v) throws Exception {
     return v.getValue();
   }
 }

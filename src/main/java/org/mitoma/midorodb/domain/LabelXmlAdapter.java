@@ -2,15 +2,15 @@ package org.mitoma.midorodb.domain;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-public class LabelXmlAdapter extends XmlAdapter<String, Label> {
+public class LabelXmlAdapter<T> extends XmlAdapter<String, Label<T>> {
 
   @Override
-  public Label unmarshal(String v) throws Exception {
-    return Label.of(v);
+  public Label<T> unmarshal(String v) throws Exception {
+    return new Label<>(v);
   }
 
   @Override
-  public String marshal(Label v) throws Exception {
+  public String marshal(Label<T> v) throws Exception {
     return v.getValue();
   }
 }
