@@ -11,6 +11,4 @@ public class Code<T> extends StringDomain {
   public Code(String value) {
     super(value);
   }
-
-
 }

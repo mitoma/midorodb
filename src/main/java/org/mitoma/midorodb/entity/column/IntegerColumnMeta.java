@@ -23,6 +23,8 @@ public class IntegerColumnMeta extends BaseEntity implements DetailColumnMeta {
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE)
   @SequenceGenerator(sequence = "integer_column_metas_id_seq")
+  private Identity<IntegerColumnMeta> id;
+
   private Identity<CommonColumnMeta> commonColumnMetaId;
 
   private Min<IntegerColumnMeta> min;

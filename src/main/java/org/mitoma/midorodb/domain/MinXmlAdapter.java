@@ -2,15 +2,15 @@ package org.mitoma.midorodb.domain;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-public class MinXmlAdapter<T> extends XmlAdapter<Long, Identity<T>> {
+public class MinXmlAdapter<T> extends XmlAdapter<Long, Min<T>> {
 
   @Override
-  public Identity<T> unmarshal(Long v) throws Exception {
-    return new Identity<>(v);
+  public Min<T> unmarshal(Long v) throws Exception {
+    return new Min<>(v);
   }
 
   @Override
-  public Long marshal(Identity<T> v) throws Exception {
+  public Long marshal(Min<T> v) throws Exception {
     return v.getValue();
   }
 }

@@ -1,8 +1,10 @@
 package org.mitoma.midorodb.domain;
 
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 @ToString
+@EqualsAndHashCode
 public abstract class LongDomain {
   private final Long value;
 

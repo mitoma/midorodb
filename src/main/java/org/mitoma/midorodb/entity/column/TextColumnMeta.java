@@ -21,10 +21,14 @@ public class TextColumnMeta extends BaseEntity implements DetailColumnMeta {
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE)
   @SequenceGenerator(sequence = "text_column_metas_id_seq")
+  private Identity<TextColumnMeta> id;
+
   private Identity<CommonColumnMeta> commonColumnMetaId;
 
   private long minLength;
+
   private long maxLength;
+
   private String textPattern;
 
   @Override

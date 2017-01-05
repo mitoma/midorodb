@@ -48,6 +48,9 @@ public class TableDefinitionService {
     detailColumnMetas.addAll(integerColumnMetas);
     detailColumnMetas.addAll(textColumnMetas);
 
+    log.info("common:{}\tint:{}\ttext:{}", commonColumnMetas.size(), integerColumnMetas.size(),
+        textColumnMetas.size());
+
     return tableMetas.stream().map(tableMeta -> {
       List<ColumnMeta> columnMetas = commonColumnMetas.stream()
           .filter(commonColumnMeta -> commonColumnMeta.getTableMetaId().equals(tableMeta.getId()))
