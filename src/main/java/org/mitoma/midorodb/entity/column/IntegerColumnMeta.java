@@ -32,7 +32,7 @@ public class IntegerColumnMeta extends BaseEntity implements DetailColumnMeta {
   private Max<IntegerColumnMeta> max;
 
   @Override
-  public <R> R accept(DetailColumnVisitor<R> visitor) {
+  public <R> R accept(DetailColumnVisitor<R> visitor){
     return visitor.visit(this);
   }
 }
