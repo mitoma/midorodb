@@ -4,11 +4,11 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.seasar.doma.Domain;
 
+import lombok.Value;
+
 @XmlJavaTypeAdapter(SortOrderXmlAdapter.class)
 @Domain(valueType = Integer.class)
-public class SortOrder extends IntegerDomain {
-
-  public SortOrder(Integer value) {
-    super(value);
-  }
+@Value
+public class SortOrder {
+  Integer value;
 }

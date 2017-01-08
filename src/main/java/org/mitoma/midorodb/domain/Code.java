@@ -4,11 +4,11 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.seasar.doma.Domain;
 
+import lombok.Value;
+
 @XmlJavaTypeAdapter(CodeXmlAdapter.class)
 @Domain(valueType = String.class)
-public class Code<T> extends StringDomain {
-
-  public Code(String value) {
-    super(value);
-  }
+@Value
+public class Code<T> {
+  String value;
 }
