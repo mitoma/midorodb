@@ -10,4 +10,6 @@ public interface DetailColumnMeta {
 
   Identity<CommonColumnMeta> getCommonColumnMetaId();
 
+  String columnType();
+
 }

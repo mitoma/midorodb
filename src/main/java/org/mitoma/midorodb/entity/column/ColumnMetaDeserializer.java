@@ -6,15 +6,15 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 
-public class ColumnMetaSerializer extends StdSerializer<ColumnMeta> {
+public class ColumnMetaDeserializer extends StdSerializer<ColumnMeta> {
 
   private static final long serialVersionUID = 5756652981777391099L;
 
-  public ColumnMetaSerializer() {
+  public ColumnMetaDeserializer() {
     this(null);
   }
 
-  protected ColumnMetaSerializer(Class<ColumnMeta> t) {
+  protected ColumnMetaDeserializer(Class<ColumnMeta> t) {
     super(t);
   }
 

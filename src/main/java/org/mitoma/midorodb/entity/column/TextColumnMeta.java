@@ -32,7 +32,12 @@ public class TextColumnMeta extends BaseEntity implements DetailColumnMeta {
   private String textPattern;
 
   @Override
-  public <R> R accept(DetailColumnVisitor<R> visitor){
+  public <R> R accept(DetailColumnVisitor<R> visitor) {
     return visitor.visit(this);
+  }
+
+  @Override
+  public String columnType() {
+    return "text";
   }
 }

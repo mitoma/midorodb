@@ -1,0 +1,21 @@
+{
+  "label":"tblLabel",
+  "code":"tblCode",
+  "columns":[
+    {
+      "label":"colLabel1",
+      "code":"colCode1",
+      "type":"integer",
+      "min":6,
+      "max":10
+    },
+    {
+      "label":"colLabel2",
+      "code":"colCode2",
+      "type":"text",
+      "min_length":10,
+      "max_length":10000,
+      "text_pattern":".*"
+    }
+  ]
+}
